@@ -16,7 +16,7 @@ results = model(im2)
 
 for r in results:
     #im_array = r.plot(kpt_radius=3,labels=False,boxes=False,line_width=1)  # plot a BGR numpy array of predictions
-    im_array = r.plot(line_width=2)  # plot a BGR numpy array of predictions
+    im_array = r.plot(kpt_radius=3,line_width=6)  # plot a BGR numpy array of predictions
     im_array = Image.fromarray(im_array[..., ::-1])  # RGB PIL image
     im_array.show()  # show image
     im_array.save('results.jpg')  # save image
