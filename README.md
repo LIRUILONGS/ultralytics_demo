@@ -60,7 +60,7 @@ See below for a quickstart installation and usage example, and see the [YOLOv8 D
 Pip install the ultralytics package including all [requirements](https://github.com/ultralytics/ultralytics/blob/main/requirements.txt) in a [**Python>=3.7**](https://www.python.org/) environment with [**PyTorch>=1.7**](https://pytorch.org/get-started/locally/).
 
 ```bash
-pip install ultralytics
+pip install ultralytics -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host  mirrors.aliyun.com
 ```
 
 </details>
