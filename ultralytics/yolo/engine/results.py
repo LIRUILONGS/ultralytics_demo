@@ -11,10 +11,11 @@ from pathlib import Path
 
 import numpy as np
 import torch
+import math
 
 from ultralytics.yolo.data.augment import LetterBox
 from ultralytics.yolo.utils import LOGGER, SimpleClass, deprecation_warn, ops
-from ultralytics.yolo.utils.plotting import Annotator, colors, save_one_box
+from ultralytics.yolo.utils.plotting import Annotator, colors, save_one_box 
 
 
 class BaseTensor(SimpleClass):
@@ -160,6 +161,7 @@ class Results(SimpleClass):
     def keys(self):
         """Return a list of non-empty attribute names."""
         return [k for k in self._keys if getattr(self, k) is not None]
+  
 
     def plot(
             self,
@@ -219,20 +221,23 @@ class Results(SimpleClass):
         pred_masks, show_masks = self.masks, masks
         pred_probs, show_probs = self.probs, probs
         keypoints = self.keypoints
+
+        
         if pred_masks and show_masks:
             if img_gpu is None:
                 img = LetterBox(pred_masks.shape[1:])(image=annotator.result())
                 img_gpu = torch.as_tensor(img, dtype=torch.float16, device=pred_masks.data.device).permute(
                     2, 0, 1).flip(0).contiguous() / 255
             idx = pred_boxes.cls if pred_boxes else range(len(pred_masks))
-            annotator.masks(pred_masks.data, colors=[colors(x, True) for x in idx], im_gpu=img_gpu)
-
+            #annotator.masks(pred_masks.data, colors=[colors(x, True) for x in idx], im_gpu=img_gpu)
+            annotator.masks(pred_masks.data, colors=[color(1, True)], im_gpu=img_gpu)    
         if pred_boxes and show_boxes:
             for d in reversed(pred_boxes):
                 c, conf, id = int(d.cls), float(d.conf) if conf else None, None if d.id is None else int(d.id.item())
                 name = ('' if id is None else f'id:{id} ') + names[c]
                 label = (f'{name} {conf:.2f}' if conf else name) if labels else None
-                annotator.box_label(d.xyxy.squeeze(), label, color=colors(c, True))
+                #annotator.box_label(d.xyxy.squeeze(), label, color=colors(c, True))
+                annotator.box_label(d.xyxy.squeeze(), label, color=color(1, True))
 
         if pred_probs is not None and show_probs:
             text = f"{', '.join(f'{names[j] if names else j} {pred_probs.data[j]:.2f}' for j in pred_probs.top5)}, "
@@ -240,7 +245,10 @@ class Results(SimpleClass):
 
         if keypoints is not None:
             for k in reversed(keypoints.data):
+                # 画骨骼 
+                print(k)
                 annotator.kpts(k, self.orig_shape, kpt_line=kpt_line)
+                
 
         return annotator.result()
 
@@ -602,3 +610,5 @@ class Probs(BaseTensor):
     def top1conf(self):
         """Return the confidences of top 1."""
         return self.data[self.top1]
+
+

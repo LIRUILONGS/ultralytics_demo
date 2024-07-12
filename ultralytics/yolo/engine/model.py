@@ -90,7 +90,7 @@ class YOLO:
         self.metrics = None  # validation/training metrics
         self.session = None  # HUB session
         model = str(model).strip()  # strip spaces
-
+        print("sdfdsfdsfdsf") 
         # Check if Ultralytics HUB model from https://hub.ultralytics.com
         if self.is_hub_model(model):
             from ultralytics.hub.session import HUBTrainingSession
@@ -238,7 +238,8 @@ class YOLO:
         is_cli = (sys.argv[0].endswith('yolo') or sys.argv[0].endswith('ultralytics')) and any(
             x in sys.argv for x in ('predict', 'track', 'mode=predict', 'mode=track'))
         overrides = self.overrides.copy()
-        overrides['conf'] = 0.25
+        ##overrides['conf'] = 0.25
+        overrides['conf'] = 0.20
         overrides.update(kwargs)  # prefer kwargs
         overrides['mode'] = kwargs.get('mode', 'predict')
         assert overrides['mode'] in ['track', 'predict']
@@ -271,7 +272,8 @@ class YOLO:
             register_tracker(self, persist)
         # ByteTrack-based method needs low confidence predictions as input
         conf = kwargs.get('conf') or 0.1
-        kwargs['conf'] = conf
+        ##kwargs['conf'] = conf
+        kwargs['conf'] = 0.20
         kwargs['mode'] = 'track'
         return self.predict(source=source, stream=stream, **kwargs)
 

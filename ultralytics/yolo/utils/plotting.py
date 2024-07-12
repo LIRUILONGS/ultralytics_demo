@@ -32,6 +32,30 @@ class Colors:
                                       [255, 153, 153], [255, 102, 102], [255, 51, 51], [153, 255, 153], [102, 255, 102],
                                       [51, 255, 51], [0, 255, 0], [0, 0, 255], [255, 0, 0], [255, 255, 255]],
                                      dtype=np.uint8)
+        """
+        这些是十六进制颜色代码对应的RGB值
+            1. `[255, 128, 0]` - 橙色
+            2. `[255, 153, 51]` - 深橙色
+            3. `[255, 178, 102]` - 浅橙色
+            4. `[230, 230, 0]` - 黄色
+            5. `[255, 153, 255]` - 紫罗兰色
+            6. `[153, 204, 255]` - 浅紫罗兰色
+            7. `[255, 102, 255]` - 梅红色
+            8. `[255, 51, 255]` - 深梅红色
+            9. `[102, 178, 255]` - 浅蓝色
+            10. `[51, 153, 255]` - 天蓝色
+            11. `[255, 153, 153]` - 粉红色
+            12. `[255, 102, 102]` - 浅粉红色
+            13. `[255, 51, 51]` - 红色
+            14. `[153, 255, 153]` - 淡绿色
+            15. `[102, 255, 102]` - 浅绿色
+            16. `[51, 255, 51]` - 深绿色
+            17. `[0, 255, 0]` - 绿色
+            18. `[0, 0, 255]` - 蓝色
+            19. `[255, 0, 0]` - 红色
+            20. `[255, 255, 255]` - 白色
+        """
+
 
     def __call__(self, i, bgr=False):
         """Converts hex color codes to rgb values."""
@@ -43,7 +67,10 @@ class Colors:
         return tuple(int(h[1 + i:1 + i + 2], 16) for i in (0, 2, 4))
 
 
+
+
 colors = Colors()  # create instance for 'from utils.plots import colors'
+
 
 
 class Annotator:
@@ -70,8 +97,20 @@ class Annotator:
         self.skeleton = [[16, 14], [14, 12], [17, 15], [15, 13], [12, 13], [6, 12], [7, 13], [6, 7], [6, 8], [7, 9],
                          [8, 10], [9, 11], [2, 3], [1, 2], [1, 3], [2, 4], [3, 5], [4, 6], [5, 7]]
 
-        self.limb_color = colors.pose_palette[[9, 9, 9, 9, 7, 7, 7, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16]]
-        self.kpt_color = colors.pose_palette[[16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9]]
+        #self.limb_color = colors.pose_palette[[9, 9, 9, 9, 7, 7, 7, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16]]
+        #self.limb_color = colors.pose_palette[[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,9, 9, 9, 9,9,9]]
+        #self.limb_color = colors.pose_palette[[6, 6, 6,6, 6, 6,6, 6, 6, 6, 6, 6,6, 6, 6, 6, 6, 6,6]]
+        #self.kpt_color = colors.pose_palette[[6, 6, 6,6, 6, 6,6, 6, 6, 6, 6, 6,6, 6, 6, 6, 6, 6,6]]
+        #self.limb_color = colors.pose_palette[[10, 10, 10,10, 10, 10,10, 10, 10, 10, 10, 10,10, 10, 10, 10, 10, 10,10]]
+        self.kpt_color = colors.pose_palette[[10, 10, 10,10, 10, 10,10, 10, 10, 10, 10, 10,10, 10, 10, 10, 10, 10,10]]
+        #self.kpt_color = colors.pose_palette[[0, 0, 0,0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0]]
+        self.limb_color = colors.pose_palette[[0, 0, 0,0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0]]
+        #self.kpt_color = colors.pose_palette[[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,9, 9, 9, 9,9,9]]
+        #self.limb_color = colors.pose_palette[[12, 12, 12,12, 12, 12,12, 12, 12, 12, 12, 12,12, 12, 12, 12, 12, 12,12]]
+        #self.kpt_color = colors.pose_palette[[12, 12, 12,12, 12, 12,12, 12, 12, 12, 12, 12,12, 12, 12, 12, 12, 12,12]]
+        #self.kpt_color = colors.pose_palette[[16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9]]
+        #self.limb_color = colors.pose_palette[[16, 16, 16, 16, 16, 16,16,16,16,16,16,16,16,16,16,16, 16]]
+        #self.kpt_color = colors.pose_palette[[16, 16, 16, 16, 16, 16,16,16,16,16,16,16,16,16,16,16, 16]]
 
     def box_label(self, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
         """Add one xyxy box to image with label."""
@@ -142,7 +181,7 @@ class Annotator:
             # Convert im back to PIL and update draw
             self.fromarray(self.im)
 
-    def kpts(self, kpts, shape=(640, 640), radius=5, kpt_line=True):
+    def kpts(self, kpts, shape=(640, 640), radius=15, kpt_line=True):
         """Plot keypoints on the image.
 
         Args:
@@ -154,6 +193,7 @@ class Annotator:
 
         Note: `kpt_line=True` currently only supports human pose plotting.
         """
+        
         if self.pil:
             # Convert to numpy first
             self.im = np.asarray(self.im).copy()
@@ -166,9 +206,19 @@ class Annotator:
             if x_coord % shape[1] != 0 and y_coord % shape[0] != 0:
                 if len(k) == 3:
                     conf = k[2]
-                    if conf < 0.5:
+                    #if conf < 0.5:
+                    if conf < 0.3:        
                         continue
-                cv2.circle(self.im, (int(x_coord), int(y_coord)), radius, color_k, -1, lineType=cv2.LINE_AA)
+                #cv2.circle(self.im, (int(x_coord), int(y_coord)), 8, color_k, -1, lineType=cv2.LINE_AA)
+                # 站立判断
+                if is_standing(kpts):
+                    if is_standing1(kpts):
+                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 4, [0,0,255], -1, lineType=cv2.LINE_AA)
+                    else:
+                        # 低头
+                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 6,[0,255,0], -1, lineType=cv2.LINE_AA)   
+                else:
+                    cv2.circle(self.im, (int(x_coord), int(y_coord)), 8, [255,0,0], -1, lineType=cv2.LINE_AA)    
 
         if kpt_line:
             ndim = kpts.shape[-1]
@@ -178,13 +228,24 @@ class Annotator:
                 if ndim == 3:
                     conf1 = kpts[(sk[0] - 1), 2]
                     conf2 = kpts[(sk[1] - 1), 2]
-                    if conf1 < 0.5 or conf2 < 0.5:
+                    #if conf1 < 0.5 or conf2 < 0.5:
+                    if conf1 < 0.3 or conf2 < 0.3:  
                         continue
                 if pos1[0] % shape[1] == 0 or pos1[1] % shape[0] == 0 or pos1[0] < 0 or pos1[1] < 0:
                     continue
                 if pos2[0] % shape[1] == 0 or pos2[1] % shape[0] == 0 or pos2[0] < 0 or pos2[1] < 0:
                     continue
-                cv2.line(self.im, pos1, pos2, [int(x) for x in self.limb_color[i]], thickness=2, lineType=cv2.LINE_AA)
+                #cv2.line(self.im, pos1, pos2, [int(x) for x in self.limb_color[i]], thickness=7, lineType=cv2.LINE_AA)
+                if is_standing(kpts):
+                    # 坐姿
+                    if is_standing1(kpts):
+                        cv2.line(self.im, pos1, pos2, [0,0,255], thickness=2, lineType=cv2.LINE_AA)
+                    else:
+                        # 低头
+                        cv2.line(self.im, pos1, pos2, [0,255,0], thickness=4, lineType=cv2.LINE_AA)    
+                else:
+                    # 站资
+                    cv2.line(self.im, pos1, pos2, [255,0,0], thickness=6, lineType=cv2.LINE_AA)    
         if self.pil:
             # Convert im back to PIL and update draw
             self.fromarray(self.im)
@@ -226,6 +287,65 @@ class Annotator:
         """Return annotated image as array."""
         return np.asarray(self.im)
 
+
+def angle_between_points(p1, p2, p3):
+      a = ((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2) ** 0.5
+      b = ((p3[0] - p2[0]) ** 2 + (p3[1] - p2[1]) ** 2) ** 0.5
+      c = ((p1[0] - p3[0]) ** 2 + (p1[1] - p3[1]) ** 2) ** 0.5
+      angle = math.degrees(math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)))
+      return angle
+
+def is_standing(keypoints):
+    # 提取 x 和 y 坐标
+    x_coords = keypoints[:, 0]
+    y_coords = keypoints[:, 1]
+
+    # 计算 x 和 y 坐标的最大值和最小值
+    x_min, x_max = np.min(x_coords.tolist()), np.max(x_coords.tolist())
+    y_min, y_max = np.min(y_coords.tolist()), np.max(y_coords.tolist())
+
+    # 计算 x 和 y 坐标的跨度
+    x_span = x_max - x_min
+    y_span = y_max - y_min
+
+    # 设置阈值以区分站立和坐姿（可根据实际需要调整）
+    x_threshold = 30
+    y_threshold = 420
+
+    # 计算姿态得分
+    #posture_score = (x_span + y_span) / 2
+    print(y_coords)
+    print(y_span)
+    # 判断当前姿态
+    if y_span < y_threshold :
+        print("使用")
+        return True
+    else:
+        print("忽略")
+        return False
+
+def is_standing1(keypoints):
+    # 提取 x 和 y 坐标
+    x_coords = keypoints[:, 0]
+    y_coords = keypoints[:, 1]
+
+   
+
+    # 设置阈值以区分站立和坐姿（可根据实际需要调整）
+  
+    y_threshold = (y_coords[0]+ y_coords[1]+ y_coords[2])/3
+
+    # 计算姿态得分
+    #posture_score = (x_span + y_span) / 2
+    print(y_coords)
+    # 判断当前姿态
+    if y_threshold < y_coords[3] + 5 :
+        print("使用")
+        return True
+    else:
+        print("忽略")
+        return False
+    
 
 @TryExcept()  # known issue https://github.com/ultralytics/yolov5/issues/5395
 @plt_settings()
@@ -374,7 +494,7 @@ def plot_images(images,
                     c = classes[j]
                     color = colors(c)
                     c = names.get(c, c) if names else c
-                    if labels or conf[j] > 0.25:  # 0.25 conf thresh
+                    if labels or conf[j] > 0.20:  # 0.20 conf thresh
                         label = f'{c}' if labels else f'{c} {conf[j]:.1f}'
                         annotator.box_label(box, label, color=color)
             elif len(classes):
@@ -395,8 +515,9 @@ def plot_images(images,
                 kpts_[..., 0] += x
                 kpts_[..., 1] += y
                 for j in range(len(kpts_)):
-                    if labels or conf[j] > 0.25:  # 0.25 conf thresh
-                        annotator.kpts(kpts_[j])
+                    if labels or conf[j] > 0.20:  # 0.20 conf thresh
+                        pass
+                        #annotator.kpts(kpts_[j])
 
             # Plot masks
             if len(masks):
@@ -411,7 +532,7 @@ def plot_images(images,
 
                 im = np.asarray(annotator.im).copy()
                 for j, box in enumerate(boxes.T.tolist()):
-                    if labels or conf[j] > 0.25:  # 0.25 conf thresh
+                    if labels or conf[j] > 0.20:  # 0.20 conf thresh
                         color = colors(classes[j])
                         mh, mw = image_masks[j].shape
                         if mh != h or mw != w:
