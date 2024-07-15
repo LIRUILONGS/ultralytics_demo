@@ -213,10 +213,11 @@ class Annotator:
                 # 站立判断
                 if is_standing(kpts):
                     if is_standing1(kpts):
-                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 4, [0,0,255], -1, lineType=cv2.LINE_AA)
+                        # 绿色
+                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 4, [0,255,0], -1, lineType=cv2.LINE_AA)
                     else:
-                        # 低头
-                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 6,[0,255,0], -1, lineType=cv2.LINE_AA)   
+                        # 低头 黄色 
+                        cv2.circle(self.im, (int(x_coord), int(y_coord)), 6,[51, 153, 255], -1, lineType=cv2.LINE_AA)   
                 else:
                     cv2.circle(self.im, (int(x_coord), int(y_coord)), 8, [255,0,0], -1, lineType=cv2.LINE_AA)    
 
@@ -239,10 +240,10 @@ class Annotator:
                 if is_standing(kpts):
                     # 坐姿
                     if is_standing1(kpts):
-                        cv2.line(self.im, pos1, pos2, [0,0,255], thickness=2, lineType=cv2.LINE_AA)
+                        cv2.line(self.im, pos1, pos2, [0,255,0], thickness=2, lineType=cv2.LINE_AA)
                     else:
                         # 低头
-                        cv2.line(self.im, pos1, pos2, [0,255,0], thickness=4, lineType=cv2.LINE_AA)    
+                        cv2.line(self.im, pos1, pos2,[51, 153, 255], thickness=4, lineType=cv2.LINE_AA)    
                 else:
                     # 站资
                     cv2.line(self.im, pos1, pos2, [255,0,0], thickness=6, lineType=cv2.LINE_AA)    
